@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101923">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SIGNAL">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>SIGNAL Intelligence</title>
+<style>
+:root{--bg:#0b1118;--panel:#121c27;--panel2:#182432;--line:#263646;--text:#edf3f8;--muted:#9aabba;--teal:#63d6c4;--gold:#e8b96b;--red:#ff7777;--blue:#8db8ff}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font:15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:calc(82px + env(safe-area-inset-bottom))}
+header{padding:calc(16px + env(safe-area-inset-top)) 18px 16px;background:linear-gradient(145deg,#142432,#0b1118);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.brand{display:flex;justify-content:space-between;align-items:center}.brand b{font-size:19px;letter-spacing:2px}.eyebrow{font-size:10px;letter-spacing:1.5px;color:var(--muted);margin-top:3px}.pill{font-size:10px;border:1px solid #356b65;color:var(--teal);border-radius:20px;padding:6px 9px}
+main{padding:17px 15px;max-width:760px;margin:auto}.greeting{font-size:25px;font-weight:700;margin:5px 0 3px}.sub{color:var(--muted);font-size:12px}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:17px 0}.kpi,.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px}.kpi small{color:var(--muted);display:block}.kpi strong{font-size:25px;display:block;margin-top:5px}.kpi em{font-size:11px;color:var(--muted);font-style:normal}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;margin:21px 2px 10px}.sectionhead h2{font-size:16px;margin:0}.sectionhead span{font-size:11px;color:var(--muted)}
+.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.quick button{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:14px;text-align:left;padding:14px;min-height:76px;font-size:14px;font-weight:600}.quick small{display:block;color:var(--muted);font-weight:400;margin-top:5px}
+.signal{padding:14px 0;border-bottom:1px solid var(--line)}.signal:last-child{border:0}.signaltop{display:flex;justify-content:space-between;gap:8px}.company{font-size:11px;color:var(--teal);font-weight:700;letter-spacing:.5px}.score{font-size:11px;color:var(--gold)}.signal h3{font-size:14px;line-height:1.35;margin:6px 0}.signal p{font-size:12px;color:var(--muted);line-height:1.45;margin:4px 0}.tag{display:inline-block;font-size:10px;padding:4px 7px;border-radius:6px;background:#253444;color:#c7d8e7;margin:5px 4px 0 0}
+nav{position:fixed;bottom:0;left:0;right:0;padding:9px 6px calc(9px + env(safe-area-inset-bottom));background:#101923f2;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);z-index:10;backdrop-filter:blur(15px)}
+nav button{border:0;background:none;color:var(--muted);font-size:10px;padding:6px 1px}nav button b{display:block;font-size:18px;margin-bottom:3px;font-weight:500}nav button.active{color:var(--teal)}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+input,select,textarea{width:100%;background:#0d151e;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:12px;margin:5px 0 10px}
+label{font-size:11px;color:var(--muted)}.primary{background:var(--teal);color:#09201d;border:0;border-radius:10px;padding:12px 14px;font-weight:700;width:100%;margin-top:6px}
+.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.row{display:flex;gap:8px}.row>*{flex:1;min-width:0}.muted{color:var(--muted)}.empty{color:var(--muted);text-align:center;padding:24px 10px;font-size:13px}
+.profile{padding:13px 0;border-bottom:1px solid var(--line)}.profile strong{display:block}.profile small{color:var(--muted)}
+.toolbar{display:flex;gap:8px;margin:10px 0}.toolbar>*{flex:1}
+.notice{border:1px solid #69552e;background:#2a2418;color:#f1d6a5;padding:11px;border-radius:12px;font-size:11px;line-height:1.45;margin:12px 0}
+.hide{display:none!important}.footnote{font-size:10px;color:var(--muted);line-height:1.5;margin-top:18px}
+</style>
+</head>
+<body>
+<header><div class="brand"><div><b>SIGNAL INTELLIGENCE</b><div class="eyebrow">COMPETITIVE RADAR · MOBILE EDITION</div></div><span class="pill">LOCAL WORKSPACE</span></div></header>
+<main id="app"></main>
+<nav>
+<button data-tab="home" class="active"><b>⌂</b>Overview</button>
+<button data-tab="signals"><b>◉</b>Signals</button>
+<button data-tab="competitors"><b>▦</b>Competitors</button>
+<button data-tab="actions"><b>◎</b>Actions</button>
+<button data-tab="settings"><b>⚙</b>Data</button>
+</nav>
+<script>
+const competitors = [
+["Accenture","Tier 1","Global SI · SAP · Supply Chain"],["Deloitte","Tier 1","Consulting · SAP · Supply Chain"],["Capgemini","Tier 1","Global SI · SAP · Supply Chain"],["IBM","Tier 1","Technology · SAP · AI"],["Infosys","Tier 1","IT Services · SAP"],["TCS","Tier 1","IT Services · SAP"],["Wipro","Tier 1","IT Services · SAP"],["HCLTech","Tier 1","IT Services · SAP"],["LTIMindtree","Tier 1","IT Services · SAP"],["NTT DATA","Tier 1","Global SI · SAP"],["Cognizant","Tier 1","IT Services · Supply Chain"],["EY","Tier 1","Consulting · Supply Chain"],["PwC","Tier 1","Consulting · SAP"],["KPMG","Tier 1","Consulting · SAP"],["Genpact","Tier 1","Operations · Supply Chain"],["GEP","Tier 2","Procurement · Supply Chain Tech"],["Blue Yonder","Tier 2","Supply Chain Software"],["Kinaxis","Tier 2","Planning Software"],["o9 Solutions","Tier 2","Planning Software"],["Miebach Consulting","Tier 2","Supply Chain Consulting"],["Argon & Co","Tier 2","Supply Chain Consulting"],["4flow","Tier 2","Supply Chain Consulting"],["Bluecrux","Tier 2","Supply Chain Consulting"],["Tech Mahindra","Tier 1","IT Services · SAP"],["Birlasoft","Tier 2","SAP Services"]
+];
+let state = {signals:[], actions:[], tab:"home"};
+const storeKey="signal_intelligence_mobile_v1";
+try { const saved=JSON.parse(localStorage.getItem(storeKey)||"{}"); state.signals=saved.signals||[];state.actions=saved.actions||[];} catch(e){}
+function persist(){localStorage.setItem(storeKey,JSON.stringify({signals:state.signals,actions:state.actions}));}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function total(s){return ["relevance","impact","credibility","market","recency","actionability"].reduce((a,k)=>a+(+s[k]||0),0)}
+function level(n){return n>=85?"Critical":n>=70?"High":n>=50?"Medium":"Low"}
+function signalCard(s){let n=total(s);return `<div class="signal"><div class="signaltop"><span class="company">${esc(s.competitor)}</span><span class="score">${n}/100 · ${level(n)}</span></div><h3>${esc(s.headline)}</h3><p>${esc(s.description)}</p><span class="tag">${esc(s.category)}</span><span class="tag">${esc(s.evidence)}</span>${s.source?`<p><a style="color:var(--blue)" href="${esc(s.source)}" target="_blank" rel="noopener">Open source ↗</a></p>`:""}</div>`}
+function shell(title,sub,body){document.getElementById("app").innerHTML=`<div class="greeting">${title}</div><div class="sub">${sub}</div>${body}<div class="footnote">SIGNAL v1 · Research evidence must be validated before executive use. Data is stored locally in this browser on this device.</div>`}
+function home(){
+let critical=state.signals.filter(s=>total(s)>=85).length, high=state.signals.filter(s=>total(s)>=70&&total(s)<85).length;
+shell("Your intelligence cockpit","BRISTLECONE · GLOBAL COMPETITOR RADAR",`
+<div class="kpis"><div class="kpi"><small>Signals captured</small><strong>${state.signals.length}</strong><em>In this device's workspace</em></div><div class="kpi"><small>Critical / high</small><strong>${critical+high}</strong><em>${critical} critical · ${high} high</em></div><div class="kpi"><small>Competitors tracked</small><strong>${competitors.length}</strong><em>Initial competitor universe</em></div><div class="kpi"><small>Open actions</small><strong>${state.actions.filter(a=>a.status!=="Done").length}</strong><em>Action register</em></div></div>
+<div class="sectionhead"><h2>Quick access</h2><span>Tap to explore</span></div><div class="quick"><button onclick="setTab('signals')">◉ Daily signals<small>Research developments</small></button><button onclick="setTab('competitors')">▦ Competitor profiles<small>Browse the universe</small></button><button onclick="setTab('actions')">◎ Bristlecone actions<small>Turn insight into action</small></button><button onclick="setTab('settings')">⇧ Import / export<small>Move data between devices</small></button></div>
+<div class="sectionhead"><h2>Latest intelligence</h2><span>${state.signals.length} recorded</span></div><div class="card">${state.signals.length?state.signals.slice().reverse().slice(0,3).map(signalCard).join(""):'<div class="empty">No research signals have been added yet.<br>Use “Add signal” to start your intelligence register.</div>'}</div>
+<div class="notice"><b>Research cadence:</b> Use your ChatGPT daily and weekly competitor research briefings to identify developments, then import or record validated signals here. This mobile dashboard does not crawl the web in the background.</div>`);
+}
+function signals(){
+shell("Signal register","SEARCH · FILTER · CAPTURE",`
+<div class="toolbar"><input id="sigsearch" placeholder="Search company or headline" oninput="filterSignals()"><select id="sigfilter" onchange="filterSignals()"><option value="">All priorities</option><option>Critical</option><option>High</option><option>Medium</option><option>Low</option></select></div>
+<div class="card" id="signalList">${state.signals.length?state.signals.slice().reverse().map(signalCard).join(""):'<div class="empty">Your signal register is empty. Add the first validated development.</div>'}</div>
+<div class="sectionhead"><h2>Add intelligence signal</h2><span>Manual / research validated</span></div>
+<div class="card"><form id="addForm">
+<label>Competitor</label><input name="competitor" required list="companies" placeholder="e.g. Accenture"><datalist id="companies">${competitors.map(c=>`<option>${esc(c[0])}</option>`).join("")}</datalist>
+<label>Category</label><select name="category"><option>Financial</option><option>Client win</option><option>Leadership</option><option>Hiring</option><option>Partnership</option><option>Technology / AI</option><option>SAP ecosystem</option><option>Supply chain</option><option>Strategy / M&A</option></select>
+<label>Headline</label><input name="headline" required placeholder="What changed?">
+<label>What happened? (facts only)</label><textarea name="description" rows="3" placeholder="Summarise the development"></textarea>
+<label>Source URL</label><input name="source" type="url" placeholder="https://...">
+<label>Evidence level</label><select name="evidence"><option>CONFIRMED</option><option>CORROBORATED</option><option>INDICATIVE</option><option>UNVERIFIED</option></select>
+<div class="row"><div><label>Strategic relevance /25</label><input name="relevance" type="number" min="0" max="25" value="15"></div><div><label>Competitive impact /25</label><input name="impact" type="number" min="0" max="25" value="15"></div></div>
+<div class="row"><div><label>Evidence credibility /20</label><input name="credibility" type="number" min="0" max="20" value="15"></div><div><label>Market impact /15</label><input name="market" type="number" min="0" max="15" value="8"></div></div>
+<div class="row"><div><label>Recency /10</label><input name="recency" type="number" min="0" max="10" value="8"></div><div><label>Actionability /5</label><input name="actionability" type="number" min="0" max="5" value="3"></div></div>
+<label>Bristlecone implication / recommended action</label><textarea name="action" rows="3"></textarea>
+<button class="primary" type="submit">Save signal</button></form></div>`);
+document.getElementById("addForm").addEventListener("submit",e=>{e.preventDefault();let f=new FormData(e.target),s={};for(let [k,v] of f.entries())s[k]=v;s.date=new Date().toISOString().slice(0,10);state.signals.push(s);persist();signals();});
+}
+function filterSignals(){let q=(document.getElementById("sigsearch")?.value||"").toLowerCase(),f=document.getElementById("sigfilter")?.value||"";let rows=state.signals.slice().reverse().filter(s=>(s.competitor+" "+s.headline+" "+s.description).toLowerCase().includes(q)&&(!f||level(total(s))===f));document.getElementById("signalList").innerHTML=rows.length?rows.map(signalCard).join(""):'<div class="empty">No matching signals.</div>'}
+function competitorPage(){
+shell("Competitor universe","GLOBAL IT SERVICES · SAP · SUPPLY CHAIN",`
+<input id="compsearch" placeholder="Search competitor..." oninput="filterCompetitors()">
+<div class="card" id="compList">${competitors.map(c=>`<div class="profile"><strong>${esc(c[0])}</strong><small>${esc(c[1])} · ${esc(c[2])}</small></div>`).join("")}</div>`);
+}
+function filterCompetitors(){let q=document.getElementById("compsearch").value.toLowerCase();document.getElementById("compList").innerHTML=competitors.filter(c=>c.join(" ").toLowerCase().includes(q)).map(c=>`<div class="profile"><strong>${esc(c[0])}</strong><small>${esc(c[1])} · ${esc(c[2])}</small></div>`).join("")}
+function actions(){
+shell("Action tracker","COMMERCIAL RESPONSE · OWNERSHIP · FOLLOW-THROUGH",`
+<div class="card"><form id="actionForm"><label>Recommended action</label><textarea name="text" rows="2" required placeholder="e.g. Build an SAP IBP competitive play"></textarea><div class="row"><div><label>Owner</label><input name="owner" placeholder="Name / team"></div><div><label>Due date</label><input name="due" type="date"></div></div><button class="primary">Add action</button></form></div>
+<div class="sectionhead"><h2>Open actions</h2><span>${state.actions.length} total</span></div><div class="card" id="actionList">${state.actions.length?state.actions.map((a,i)=>`<div class="profile"><strong>${esc(a.text)}</strong><small>${esc(a.owner||"Unassigned")} · ${esc(a.due||"No due date")} · ${esc(a.status)}</small><div class="toolbar"><button class="secondary" onclick="toggleAction(${i})">Mark ${a.status==="Done"?"open":"done"}</button><button class="secondary" onclick="deleteAction(${i})">Delete</button></div></div>`).join(""):'<div class="empty">No actions recorded.</div>'}</div>`);
+document.getElementById("actionForm").addEventListener("submit",e=>{e.preventDefault();let f=new FormData(e.target);state.actions.push({text:f.get("text"),owner:f.get("owner"),due:f.get("due"),status:"Open"});persist();actions();});
+}
+function toggleAction(i){state.actions[i].status=state.actions[i].status==="Done"?"Open":"Done";persist();actions()}
+function deleteAction(i){state.actions.splice(i,1);persist();actions()}
+function settings(){
+shell("Data & settings","BACKUP · RESTORE · DEVICE WORKSPACE",`
+<div class="card"><h3>Export your intelligence</h3><p class="muted">Download a JSON backup of signals and actions stored in this browser.</p><button class="primary" onclick="exportData()">Export backup</button></div>
+<div class="card" style="margin-top:10px"><h3>Import a backup</h3><p class="muted">Restore a JSON backup on this iPhone or another device.</p><input type="file" id="importFile" accept=".json,application/json"><button class="primary" onclick="importData()">Import backup</button></div>
+<div class="card" style="margin-top:10px"><h3>Research operating model</h3><p class="muted">ChatGPT performs web research and scheduled briefings. Review source evidence, then enter validated findings in this app. Export/import is the bridge between the ChatGPT research workflow and this local dashboard.</p></div>
+<div class="notice"><b>Privacy:</b> This starter app stores data in local browser storage on this device. It does not send your records to a server. Clearing browser website data may erase the local workspace, so export backups regularly.</div>`);
+}
+function exportData(){let blob=new Blob([JSON.stringify({signals:state.signals,actions:state.actions,exported:new Date().toISOString()},null,2)],{type:"application/json"});let a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="signal-intelligence-backup.json";a.click();URL.revokeObjectURL(a.href)}
+function importData(){let f=document.getElementById("importFile").files[0];if(!f){alert("Choose a JSON backup first.");return}let r=new FileReader();r.onload=()=>{try{let d=JSON.parse(r.result);state.signals=d.signals||[];state.actions=d.actions||[];persist();alert("Backup imported.");home()}catch(e){alert("That file could not be read as a SIGNAL backup.")}};r.readAsText(f)}
+function setTab(t){state.tab=t;document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===t));({home,signals,competitors:competitorPage,actions,settings}[t]||home)()}
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.tab)));
+if("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("./sw.js").catch(()=>{});
+home();
+</script>
+</body></html>
